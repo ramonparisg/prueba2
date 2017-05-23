@@ -19,11 +19,11 @@ import util.Conexion;
 public class PostDAO {
     public int insertar(Post p){
         int res=0;
-        String q = "Insert into usuario(usuario_id,titulo,cuerpo,post_estado_id,fecha_creacion) values"
+        String q = "Insert into post(usuario_id,titulo,cuerpo,post_estado_id,fecha_creacion) values"
                 + "("+p.getUsuarioId()+""
                 + ",'"+p.getTitulo()+"'"
                 + ",'"+p.getCuerpo()+"'"
-                + ",'"+p.getPostEstadoId()+"'"
+                + ","+p.getPostEstadoId()+""
                 + ",'"+p.getFechaCreacion()
                 + "'); ";
         
@@ -36,12 +36,12 @@ public class PostDAO {
     public int modificar(Post p, int id){
         int res = 0;
         String q = "Update post set"
-                + "usuario_id='"+p.getUsuarioId()
-                + "',titulo='"+p.getTitulo()
+                + "usuario_id="+p.getUsuarioId()
+                + ",titulo='"+p.getTitulo()
                 + "',cuerpo='"+p.getCuerpo()
-                + "',post_estado_id='"+p.getPostEstadoId()
-                + "',fecha_creacion='"+p.getFechaCreacion()
-                + " where id="+id;
+                + "',post_estado_id="+p.getPostEstadoId()
+                + ",fecha_creacion='"+p.getFechaCreacion()
+                + "' where id="+id;
         
         Conexion c = new Conexion();
         res = c.ejecutarSQL(q);                       
@@ -79,7 +79,7 @@ public class PostDAO {
         }
     }
     
-    public ArrayList<Post> listarUsuarios (){
+    public ArrayList<Post> listar (){
         ArrayList<Post> lista= null;
         String q = "Select * from usuario;";
         

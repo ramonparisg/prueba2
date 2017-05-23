@@ -43,7 +43,7 @@ public class UsuarioDAO {
                 + "',apellido='"+u.getApellido()
                 + "',email='"+u.getEmail()
                 + "',fecha_creacion='"+u.getFechaCreacion()
-                + " where id="+id;
+                + "' where id="+id;
         
         Conexion c = new Conexion();
         res = c.ejecutarSQL(q);                       
