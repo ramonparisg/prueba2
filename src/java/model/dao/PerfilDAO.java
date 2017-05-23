@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.dto.Comentario;
-import model.dto.Post;
+import model.dto.Auxiliar;
 import util.Conexion;
 
 /**
@@ -19,15 +19,12 @@ import util.Conexion;
  * @author raparisg
  */
 public class PerfilDAO {
-    public int insertar(Comentario c){
+    public int insertar(Auxiliar perfil){
         int res=0;
-        String q = "Insert into comentario(usuario_id,post_id,comentario_estado_id,comentario,fecha_creacion) values"
-                + "("+c.getUsuarioId()+""
-                + ","+c.getPostId()+""
-                + ","+c.getComentarioEstadoId()+""
-                + ",'"+c.getComentario()+"'"
-                + ",'"+c.getFechaCreacion()
-                + "'); ";
+        String q = "Insert into perfil(id,detalle) values"
+                + "("+perfil.getId()+""
+                + ",'"+perfil.getDetalle()+"'"
+                + "); ";
         
         Conexion con = new Conexion();
         res = con.ejecutarSQL(q);
@@ -35,14 +32,11 @@ public class PerfilDAO {
         return res;
     }
     
-    public int modificar(Comentario c, int id){
+    public int modificar(Auxiliar perfil, int id){
         int res = 0;
-        String q = "Update comentario set"
-                + "usuario_id="+c.getUsuarioId()
-                + ",post_id="+c.getPostId()
-                + ",comentario_estado_id="+c.getComentarioEstadoId()
-                + ",comentario='"+c.getComentario()
-                + "',fecha_creacion='"+c.getFechaCreacion()
+        String q = "Update perfil set"
+                + "id="+perfil.getId()
+                + ",detalle='"+perfil.getDetalle()               
                 + "' where id="+id;
         
         Conexion con = new Conexion();
@@ -52,28 +46,24 @@ public class PerfilDAO {
     
     public int borrar(int id){
         int res = 0;
-        String q ="delete from comentario where id="+id;
+        String q ="delete from perfil where id="+id;
         Conexion c = new Conexion();
         res=c.ejecutarSQL(q);
         return res;
     }
     
     public void buscar(int id){
-        String q = "Select * from comentario where id="+id;
-        Conexion con = new Conexion();
-        Post p = new Post();
-        Comentario c = new Comentario();
+        String q = "Select * from perfil where id="+id;
+        Conexion con = new Conexion();        
+        Auxiliar perfil = new Auxiliar();
+        
         ResultSet rs;
         if (con.conecta()){
             rs = con.leerDatos(q);
             try {
                 while (rs.next()){
-                    c.setId(rs.getInt(0));
-                    c.setUsuarioId(rs.getInt(1));
-                    c.setPostId(rs.getInt(2));
-                    c.setComentarioEstadoId(rs.getInt(3));
-                    c.setComentario(rs.getString(4));                    
-                    c.setFechaCreacion(rs.getString(5));                                        
+                    perfil.setId(rs.getInt(0));
+                    perfil.setDetalle(rs.getString(1));                    
                 }
                 con.desconecta();
             } catch (SQLException ex) {
@@ -82,26 +72,21 @@ public class PerfilDAO {
         }
     }
     
-    public ArrayList<Comentario> listar (){
-        ArrayList<Comentario> lista= null;
-        String q = "Select * from comentario;";
+    public ArrayList<Auxiliar> listar (){
+        ArrayList<Auxiliar> lista= null;
+        String q = "Select * from perfil;";
         
         Conexion con = new Conexion();
         if (con.conecta()){
             ResultSet rs;
             rs=con.leerDatos(q);
-            Comentario c;
+            Auxiliar perfil;
             try {
                 while (rs.next()){
-                    c = new Comentario();
-                    c.setId(rs.getInt(0));
-                    c.setUsuarioId(rs.getInt(1));
-                    c.setPostId(rs.getInt(2));
-                    c.setComentarioEstadoId(rs.getInt(3));
-                    c.setComentario(rs.getString(4));                    
-                    c.setFechaCreacion(rs.getString(5));
-                    
-                    lista.add(c);
+                    perfil = new Auxiliar();
+                    perfil.setId(rs.getInt(0));
+                    perfil.setDetalle(rs.getString(1));                                        
+                    lista.add(perfil);
                 }
                 con.desconecta();
             } catch (SQLException ex) {
