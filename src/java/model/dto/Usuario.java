@@ -15,13 +15,15 @@ public class Usuario {
     private String apellido;
     private String email;
     private String fechaCreacion;
+    private int perfilId;
 
-    public Usuario(int id, String nombre, String apellido, String email, String fechaCreacion) {
+    public Usuario(int id, String nombre, String apellido, String email, String fechaCreacion, int perfilId) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.fechaCreacion = fechaCreacion;
+        this.perfilId = perfilId;
     }
 
     public Usuario() {
@@ -65,6 +67,14 @@ public class Usuario {
 
     public void setFechaCreacion(String fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public int getPerfilId() {
+        return perfilId;
+    }
+
+    public void setPerfilId(int perfilId) {
+        this.perfilId = perfilId;
     }
     
     
