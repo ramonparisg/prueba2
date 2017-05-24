@@ -26,8 +26,8 @@ public class ComentarioDAO {
                 + ","+c.getPostId()+""
                 + ","+c.getComentarioEstadoId()+""
                 + ",'"+c.getComentario()+"'"
-                + ",'"+c.getFechaCreacion()
-                + "'); ";
+                + ",now());";
+                
         
         Conexion con = new Conexion();
         res = con.ejecutarSQL(q);
@@ -58,7 +58,7 @@ public class ComentarioDAO {
         return res;
     }
     
-    public void buscar(int id){
+    public Comentario buscar(int id){
         String q = "Select * from comentario where id="+id;
         Conexion con = new Conexion();
         Post p = new Post();
@@ -68,22 +68,23 @@ public class ComentarioDAO {
             rs = con.leerDatos(q);
             try {
                 while (rs.next()){
-                    c.setId(rs.getInt(0));
-                    c.setUsuarioId(rs.getInt(1));
-                    c.setPostId(rs.getInt(2));
-                    c.setComentarioEstadoId(rs.getInt(3));
-                    c.setComentario(rs.getString(4));                    
-                    c.setFechaCreacion(rs.getString(5));                                        
+                    c.setId(rs.getInt(1));
+                    c.setUsuarioId(rs.getInt(2));
+                    c.setPostId(rs.getInt(3));
+                    c.setComentarioEstadoId(rs.getInt(4));
+                    c.setComentario(rs.getString(5));                    
+                    c.setFechaCreacion(rs.getString(6));                                        
                 }
                 con.desconecta();
             } catch (SQLException ex) {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return c;
     }
     
     public ArrayList<Comentario> listar (){
-        ArrayList<Comentario> lista= null;
+        ArrayList<Comentario> lista= new ArrayList<Comentario>();
         String q = "Select * from comentario;";
         
         Conexion con = new Conexion();
@@ -94,12 +95,63 @@ public class ComentarioDAO {
             try {
                 while (rs.next()){
                     c = new Comentario();
-                    c.setId(rs.getInt(0));
-                    c.setUsuarioId(rs.getInt(1));
-                    c.setPostId(rs.getInt(2));
-                    c.setComentarioEstadoId(rs.getInt(3));
-                    c.setComentario(rs.getString(4));                    
-                    c.setFechaCreacion(rs.getString(5));
+                    c.setId(rs.getInt(1));
+                    c.setUsuarioId(rs.getInt(2));
+                    c.setPostId(rs.getInt(3));
+                    c.setComentarioEstadoId(rs.getInt(4));
+                    c.setComentario(rs.getString(5));                    
+                    c.setFechaCreacion(rs.getString(6));
+                    
+                    lista.add(c);
+                }
+                con.desconecta();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+        return lista;
+    }
+    
+    public String buscarUsuarioComentario(int id){
+        String res="";
+        String q = "select u.nombre, u.apellido from usuario u join comentario c on u.id ="+id;
+        Conexion c = new Conexion();
+        
+        ResultSet rs;
+        if (c.conecta()){
+            rs = c.leerDatos(q);
+            try {
+                while (rs.next()){
+                    return rs.getString(1) + " " + rs.getString(2);
+                }
+                c.desconecta();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        return res;
+    }
+    
+    public ArrayList<Comentario> listarPostComentario(int id){
+        ArrayList<Comentario> lista= new ArrayList<Comentario>();
+        String q = "Select * from comentario where post_id="+id;
+        
+        Conexion con = new Conexion();
+        if (con.conecta()){
+            ResultSet rs;
+            rs=con.leerDatos(q);
+            Comentario c;
+            try {
+                while (rs.next()){
+                    c = new Comentario();
+                    c.setId(rs.getInt(1));
+                    c.setUsuarioId(rs.getInt(2));
+                    c.setPostId(rs.getInt(3));
+                    c.setComentarioEstadoId(rs.getInt(4));
+                    c.setComentario(rs.getString(5));                    
+                    c.setFechaCreacion(rs.getString(6));
                     
                     lista.add(c);
                 }

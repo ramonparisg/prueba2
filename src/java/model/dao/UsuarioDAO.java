@@ -58,8 +58,8 @@ public class UsuarioDAO {
         return res;
     }
     
-    public void buscar(int id){
-        String q = "Select * from usuario where id="+id;
+    public Usuario buscar(String email){
+        String q = "Select * from usuario where email='"+email+"';";
         Conexion c = new Conexion();
         Usuario u = new Usuario();
         ResultSet rs;
@@ -80,10 +80,11 @@ public class UsuarioDAO {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return u;
     }
     
     public ArrayList<Usuario> listarUsuarios (){
-        ArrayList<Usuario> lista= null;
+        ArrayList<Usuario> lista= new ArrayList<Usuario>();
         String q = "Select * from usuario;";
         
         Conexion c = new Conexion();
@@ -109,5 +110,47 @@ public class UsuarioDAO {
             }
         } 
         return lista;
+    }
+    
+    public boolean buscarEmail (String email){
+        boolean res=false;
+        String q = "Select * from usuario where email='"+email+"';";
+        Conexion c = new Conexion();
+        Usuario u = new Usuario();
+        ResultSet rs;
+        if (c.conecta()){
+            rs = c.leerDatos(q);
+            try {
+                while (rs.next()){
+                    c.desconecta();
+                    return true;
+                    
+                }
+                c.desconecta();                
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
+    }
+    
+    public String buscarNombreEmail (String email){
+        String res="";
+        String q = "Select nombre from usuario where email='"+email+"';";
+        Conexion c = new Conexion();
+        Usuario u = new Usuario();
+        ResultSet rs;
+        if (c.conecta()){
+            rs = c.leerDatos(q);
+            try {
+                while (rs.next()){
+                    res=rs.getString("nombre");
+                }
+                c.desconecta();                
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return res;
     }
 }

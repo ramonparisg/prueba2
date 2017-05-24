@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author raparisg
  */
 public class Conexion {
-    private String url="jdbc:mysql://localhost:3306/biblioteca";
+    private String url="jdbc:mysql://localhost:3306/prograweb";
     private String login="root";
     private String pass="";
     Connection con;
@@ -22,8 +22,9 @@ public class Conexion {
     
     public boolean conecta(){
         try {
-            Class.forName("com.jdbc.mysql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url,login,pass);
+            System.out.println("bieeen");
             return true;
         } catch (ClassNotFoundException ex) {
             return false;

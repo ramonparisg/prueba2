@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.dto.Post;
-import model.dto.Usuario;
 import util.Conexion;
 /**
  *
@@ -36,7 +35,7 @@ public class PostDAO {
     public int modificar(Post p, int id){
         int res = 0;
         String q = "Update post set"
-                + "usuario_id="+p.getUsuarioId()
+                + " usuario_id="+p.getUsuarioId()
                 + ",titulo='"+p.getTitulo()
                 + "',cuerpo='"+p.getCuerpo()
                 + "',post_estado_id="+p.getPostEstadoId()
@@ -56,7 +55,7 @@ public class PostDAO {
         return res;
     }
     
-    public void buscar(int id){
+    public Post buscar(int id){
         String q = "Select * from post where id="+id;
         Conexion c = new Conexion();
         Post p = new Post();
@@ -65,39 +64,39 @@ public class PostDAO {
             rs = c.leerDatos(q);
             try {
                 while (rs.next()){
-                    p.setId(rs.getInt(0));
-                    p.setUsuarioId(rs.getInt(1));
-                    p.setTitulo(rs.getString(2));
-                    p.setCuerpo(rs.getString(3));
-                    p.setPostEstadoId(rs.getInt(4));                    
-                    p.setFechaCreacion(rs.getString(5));                                        
+                    p.setId(rs.getInt(1));
+                    p.setUsuarioId(rs.getInt(2));
+                    p.setTitulo(rs.getString(3));
+                    p.setCuerpo(rs.getString(4));
+                    p.setPostEstadoId(rs.getInt(5));                    
+                    p.setFechaCreacion(rs.getString(6));                                        
                 }
                 c.desconecta();
             } catch (SQLException ex) {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return p;
     }
     
     public ArrayList<Post> listar (){
-        ArrayList<Post> lista= null;
-        String q = "Select * from usuario;";
+        ArrayList<Post> lista= new ArrayList<Post>();
+        String q = "Select * from post";
         
         Conexion c = new Conexion();
         if (c.conecta()){
             ResultSet rs;
             rs=c.leerDatos(q);
-            Post p;
+            
             try {
                 while (rs.next()){
-                    p = new Post();
-                    p.setId(rs.getInt(0));
-                    p.setUsuarioId(rs.getInt(1));
-                    p.setTitulo(rs.getString(2));
-                    p.setCuerpo(rs.getString(3));
-                    p.setPostEstadoId(rs.getInt(4));                    
-                    p.setFechaCreacion(rs.getString(5));
-                    
+                    Post p = new Post();                    
+                    p.setId(rs.getInt(1));
+                    p.setUsuarioId(rs.getInt(2));
+                    p.setTitulo(rs.getString(3));
+                    p.setCuerpo(rs.getString(4));
+                    p.setPostEstadoId(rs.getInt(5));                    
+                    p.setFechaCreacion(rs.getString(6));   
                     lista.add(p);
                 }
                 c.desconecta();
@@ -106,5 +105,27 @@ public class PostDAO {
             }
         } 
         return lista;
+    }
+    
+    public String buscarNombreUsuario(int id){
+        String res="";
+        String q = "select u.nombre, u.apellido from usuario u join post p on u.id ="+id;
+        Conexion c = new Conexion();
+        Post p = new Post();
+        ResultSet rs;
+        if (c.conecta()){
+            rs = c.leerDatos(q);
+            try {
+                while (rs.next()){
+                    return rs.getString(1) + " " + rs.getString(2);
+                }
+                c.desconecta();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        return res;
     }
 }

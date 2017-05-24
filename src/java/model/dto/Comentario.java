@@ -17,6 +17,13 @@ public class Comentario {
     private int comentarioEstadoId;
     private String fechaCreacion;
 
+    public Comentario(int usuarioId, int postId, String comentario, int comentarioEstadoId) {
+        this.usuarioId = usuarioId;
+        this.postId = postId;
+        this.comentario = comentario;
+        this.comentarioEstadoId = comentarioEstadoId;
+    }
+
     public Comentario(int id, int usuarioId, int postId, String comentario, int comentarioEstadoId, String fechaCreacion) {
         this.id = id;
         this.usuarioId = usuarioId;

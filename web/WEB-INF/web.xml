@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>LoginSession</servlet-name>
+        <servlet-class>controller.LoginSession</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>controller.PostServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <servlet-class>controller.ComentarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginSession</servlet-name>
+        <url-pattern>/LoginSession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/Post/ver</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/Post/agregar</url-pattern>
+        
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/Post/eliminar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/Post/modificar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/Post/buscar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <url-pattern>/Comentario/insertar</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <url-pattern>/Comentario/modificar</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>ComentarioServlet</servlet-name>
+        <url-pattern>/Comentario/eliminar</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
