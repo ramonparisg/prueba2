@@ -22,12 +22,12 @@ public class UsuarioDAO {
     public int insertar(Usuario u){
         int res=0;
         String q = "Insert into usuario(perfil_id,nombre,apellido,email,fecha_creacion) values"
-                + "("+u.getPerfilId()+""
+                + "(2"
                 + ",'"+u.getNombre()+"'"
                 + ",'"+u.getApellido()+"'"
                 + ",'"+u.getEmail()+"'"
-                + ",'"+u.getFechaCreacion()
-                + "'); ";
+                + ",now())";
+                
         
         Conexion c = new Conexion();
         res = c.ejecutarSQL(q);

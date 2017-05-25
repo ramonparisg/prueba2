@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import static java.lang.System.out;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,15 +36,16 @@ public class ComentarioDAO {
         return res;
     }
     
-    public int modificar(Comentario c, int id){
+    public int modificar(Comentario c){
         int res = 0;
-        String q = "Update comentario set"
+        String q = "Update comentario set "
                 + "usuario_id="+c.getUsuarioId()
                 + ",post_id="+c.getPostId()
                 + ",comentario_estado_id="+c.getComentarioEstadoId()
                 + ",comentario='"+c.getComentario()
                 + "',fecha_creacion='"+c.getFechaCreacion()
-                + "' where id="+id;
+                + "' where id="+c.getId();
+        System.out.println(q);
         
         Conexion con = new Conexion();
         res = con.ejecutarSQL(q);                       

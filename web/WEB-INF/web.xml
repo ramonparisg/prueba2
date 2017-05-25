@@ -12,6 +12,10 @@
         <servlet-name>ComentarioServlet</servlet-name>
         <servlet-class>controller.ComentarioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <servlet-class>controller.UsuarioServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginSession</servlet-name>
         <url-pattern>/LoginSession</url-pattern>
@@ -39,15 +43,31 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ComentarioServlet</servlet-name>
-        <url-pattern>/Comentario/insertar</url-pattern>
-    </servlet-mapping>    
+        <url-pattern>/Comentario/agregar</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ComentarioServlet</servlet-name>
         <url-pattern>/Comentario/modificar</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ComentarioServlet</servlet-name>
         <url-pattern>/Comentario/eliminar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/Usuario/agregar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/Usuario/modificar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/Usuario/eliminar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/Usuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

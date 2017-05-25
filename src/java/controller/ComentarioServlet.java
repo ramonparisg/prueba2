@@ -38,18 +38,42 @@ public class ComentarioServlet extends HttpServlet {
         String accion = Ayudante.getAccion(ruta);
         ComentarioDAO comentarioDAO = new ComentarioDAO();
         
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-        int idPost = Integer.parseInt(request.getParameter("idPost"));
-        int comentarioEstadoId = Integer.parseInt(request.getParameter("comentarioEstadoId"));
-        String comentario = request.getParameter("comentario");
-        Comentario c = new Comentario(idUsuario,idPost,comentario,comentarioEstadoId);
+        
+        
         
         
         
         switch (accion){
-            case "insertar":
+            case "agregar":
+                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                int idPost = Integer.parseInt(request.getParameter("idPost"));        
+                String comentario = request.getParameter("comentario");
+                int comentarioEstadoId = Integer.parseInt(request.getParameter("comentarioEstadoId"));
+                
+                Comentario c = new Comentario(idUsuario,idPost,comentario,comentarioEstadoId);
                 comentarioDAO.insertar(c);
-                response.sendRedirect("../Post.jsp?codigo="+idPost+"&idUsuario="+idUsuario);
+                response.sendRedirect(request.getContextPath()+"/Post.jsp?codigo="+idPost+"&idUsuario="+idUsuario);
+                break;
+            
+            case "modificar":
+                Comentario update = new Comentario();
+                int idComentario=Integer.parseInt(request.getParameter("idComentario"));
+                update=comentarioDAO.buscar(idComentario);
+                
+                update.setComentario(request.getParameter("comentario"));                
+                if (comentarioDAO.modificar(update)>0){
+                    request.getRequestDispatcher(request.getContextPath()+"/Post.jsp?codigo="+update.getPostId()+"&idUsuario="+update.getUsuarioId()).forward(request, response);
+                }else{
+                    response.sendRedirect(request.getContextPath()+"/ErrorLogin.jsp");
+                }
+                break;
+            case "eliminar":
+                int id=Integer.parseInt(request.getParameter("idComentario"));
+                Comentario delete = new Comentario();
+                delete = comentarioDAO.buscar(id);
+                comentarioDAO.borrar(delete.getId());
+//                request.getRequestDispatcher("../Post.jsp?codigo="+delete.getPostId()+"&idUsuario="+delete.getUsuarioId()).forward(request, response);
+                response.sendRedirect("../Post.jsp?codigo="+delete.getPostId()+"&idUsuario="+delete.getUsuarioId());
                 break;
         }
     }

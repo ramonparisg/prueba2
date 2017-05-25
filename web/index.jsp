@@ -24,20 +24,24 @@
     <body>
         
         <a href="Ingresar.jsp">Ingresar</a>
-        <a href="">Únete</a>
+        <a href="Registrar.jsp">Registrarse</a>
         
-        <h1>Bienvenido! Acá los posts</h1>
+        
+        <div class="container">
+        <h1><u>Posts:</u></h1>
         <% 
             for(Post post : lista){                
          %>
-         <a href="Post.jsp?codigo=<%=post.getId() %>"><h2><%=post.getTitulo()%></h2></a>                
-         <p><%=post.getFechaCreacion()%> - <%=p.buscarNombreUsuario(post.getUsuarioId())%></p>
-         <hr>
-         <p><%=post.getCuerpo() %></p>
-         <br>
+            <div>
+             <a href="Post.jsp?codigo=<%=post.getId() %>"><h2><%=post.getTitulo()%></h2></a>                
+             <p><%=post.getFechaCreacion()%> - <%=p.buscarNombreUsuario(post.getUsuarioId())%></p>
+             <hr>
+             <p><%=post.getCuerpo() %></p>
+             <br>
+             </div>
         <%        
         }
         %>
-        
+        </div>
     </body>
 </html>

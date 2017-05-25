@@ -35,14 +35,19 @@
     </head>
     <body>                                
         
-         <h2><%=post.getTitulo() %></h2>
+        <h2><%=post.getTitulo() %> </h2>
          <p><%=post.getTitulo() %> - <%=postDAO.buscarNombreUsuario(post.getUsuarioId()) %></p>
          <hr>
          <p><%=post.getCuerpo() %></p>
          <br>
          <h1>Comentarios:</h1>
         <%for(Comentario com : lista){ %>
-        <h4><%=comDAO.buscarUsuarioComentario(com.getUsuarioId()) %></h4>                  
+        <h4><%=comDAO.buscarUsuarioComentario(com.getUsuarioId()) %>
+            <% if (idUsuario!=null){%>
+            <a class="glyphicon glyphicon-pencil" href="Comentario.jsp?idComentario=<%=com.getId() %>&idUsuario=<%=idUsuario %>&idPost=<%=post.getId() %>"></a>
+            <a class="glyphicon glyphicon-remove" href="Comentario/eliminar?idComentario=<%=com.getId() %>"></a></h4>  
+            
+            <% } %>
             <p><%=com.getFechaCreacion() %></p>
             <hr>
             <p><%=com.getComentario() %></p>
@@ -52,7 +57,7 @@
         
         <% if(request.getParameter("idUsuario")!=null){ %>
             <h4>Inserta un comentario</h4>
-            <form method="post" action="Comentario/insertar">
+            <form method="post" action="Comentario/agregar">
                 <input type="text" value="<%=idUsuario %>" hidden name="idUsuario">
                 <input type="text" value="<%=post.getId() %>" hidden name="idPost">                
                 <textarea name="comentario" rows="4" cols="100"></textarea> <br>
@@ -60,7 +65,7 @@
                 <input type="submit">
             </form>
          <% }else { %>
-            <h4>Registrate para hacer comentarios!!</h4>
+         <h4><a href="Registro.jsp">Registrate</a> o <a href="Ingresar.jsp">Ingresa</a> para hacer comentarios!!</h4>
          <% } %> 
     </body>
 </html>

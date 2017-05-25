@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,10 +38,54 @@ public class PostServlet extends HttpServlet {
         String ruta = request.getRequestURI();
         String accion = Ayudante.getAccion(ruta);
         PostDAO dao = new PostDAO();
-        Post post;
+        ArrayList<Post> lista;
+        Post p;
         switch (accion){
-            case "":
+            case "ver":
+                lista = dao.listar();
+                request.setAttribute("lista", lista);                
+                request.getRequestDispatcher("../Tabla.jsp").forward(request, response);
+                break;
+            case "agregar":
+                p = new Post();
+                p.setUsuarioId(Integer.parseInt(request.getParameter("idUsuario")));
+                p.setTitulo(request.getParameter("titulo"));
+                p.setCuerpo(request.getParameter("cuerpo"));
+                p.setFechaCreacion(request.getParameter("fecha"));
+                p.setPostEstadoId(Integer.parseInt(request.getParameter("postEstado")));
                 
+                if (dao.insertar(p) > 0)
+                    try{
+                        lista = dao.listar();
+                        request.setAttribute("lista", lista); 
+                        request.getRequestDispatcher("../Tabla.jsp").forward(request, response);
+                    }catch(Exception ex){
+                        response.sendRedirect(request.getContextPath()+"/ErrorLogin.jsp");
+                    };                    
+                break;
+            case "modificar":
+                p = new Post();
+                p.setId(Integer.parseInt(request.getParameter("id")));
+                p.setUsuarioId(Integer.parseInt(request.getParameter("idUsuario")));
+                p.setPostEstadoId(Integer.parseInt(request.getParameter("postEstado")));
+                p.setTitulo(request.getParameter("titulo"));
+                p.setCuerpo(request.getParameter("cuerpo"));
+                p.setFechaCreacion(request.getParameter("fecha"));
+                
+                if (dao.modificar(p) > 0){
+                    lista = dao.listar();
+                    request.setAttribute("lista", lista); 
+                    request.getRequestDispatcher("../Tabla.jsp").forward(request, response);
+                }
+                break;
+            case "eliminar":
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (dao.borrar(id)>0){
+                    lista = dao.listar();
+                    request.setAttribute("lista", lista); 
+                    request.getRequestDispatcher("../Tabla.jsp").forward(request, response);
+                }
+                break;
         }
     }
 
@@ -84,3 +129,4 @@ public class PostServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+

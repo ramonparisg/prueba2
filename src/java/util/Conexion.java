@@ -5,6 +5,7 @@
  */
 package util;
 
+import static java.lang.System.out;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +52,7 @@ public class Conexion {
                 desconecta();
             } catch (SQLException ex) {
                 Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+                out.println(q);
             }
         } 
         

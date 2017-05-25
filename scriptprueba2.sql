@@ -60,6 +60,8 @@ constraint fk_comentario_estado foreign key(comentario_estado_id) references com
 
 
 insert into perfil values (1,'Administrador');
+insert into perfil values(2,'Usuario');
+
 
 insert into usuario(perfil_id,
 					nombre,
@@ -68,6 +70,7 @@ insert into usuario(perfil_id,
 					fecha_creacion) values (1,'Ramon','Paris','pariis78@gmail.com',now());
 
 insert into post_estado values (1,'Online');
+
 
 
 insert into post(usuario_id,
@@ -80,3 +83,10 @@ insert into post(usuario_id,
 										1,now());
 
 insert into comentario_estado values(1,"Publicado");
+
+insert into comentario(usuario_id,
+						post_id,
+						comentario_estado_id,
+						comentario,
+						fecha_creacion) values (1,1,1,'Gigante!!!!',now());
+

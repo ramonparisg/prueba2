@@ -32,7 +32,7 @@ public class PostDAO {
         return res;
     }
     
-    public int modificar(Post p, int id){
+    public int modificar(Post p){
         int res = 0;
         String q = "Update post set"
                 + " usuario_id="+p.getUsuarioId()
@@ -40,7 +40,7 @@ public class PostDAO {
                 + "',cuerpo='"+p.getCuerpo()
                 + "',post_estado_id="+p.getPostEstadoId()
                 + ",fecha_creacion='"+p.getFechaCreacion()
-                + "' where id="+id;
+                + "' where id="+p.getId();
         
         Conexion c = new Conexion();
         res = c.ejecutarSQL(q);                       

@@ -11,15 +11,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.dao.UsuarioDAO;
 import model.dto.Usuario;
+import util.Ayudante;
 
 /**
  *
  * @author raparisg
  */
-public class LoginSession extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,10 +32,25 @@ public class LoginSession extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        
-        
-        
+        String ruta = request.getRequestURI();
+        String accion = Ayudante.getAccion(ruta);
+        UsuarioDAO us = new UsuarioDAO();
+        switch(accion){
+            case "agregar":
+                Usuario u = new Usuario();
+                u.setEmail(request.getParameter("email"));
+                
+                u.setNombre(request.getParameter("nombre"));
+                u.setApellido(request.getParameter("apellido"));
+
+                if (!us.buscarEmail(u.getEmail()) && us.insertar(u)>0){
+                    response.sendRedirect("../Ingresar.jsp");
+                }else{
+                    response.sendRedirect("../ErrorLogin.jsp");
+                }
+
+                
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,28 +80,13 @@ public class LoginSession extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
-        HttpSession sesion = request.getSession();
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
-        UsuarioDAO u=new UsuarioDAO();
-        Usuario user = u.buscar(email);
-        if (email.equals(user.getEmail()) && pass.equals("1234") && sesion.getAttribute("email")==null ){
-            sesion.setAttribute("user", user.getNombre());
-            sesion.setAttribute("id", user.getId());
-            if(user.getPerfilId()==2){
-                response.sendRedirect("UsuarioIndex.jsp");
-            }else
-                response.sendRedirect("admin.jsp");
-            
-        }else{
-            sesion.invalidate();
-            response.sendRedirect("ErrorLogin.jsp");
-        }
     }
 
-    
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
