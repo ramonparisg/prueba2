@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,21 +35,49 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         String ruta = request.getRequestURI();
         String accion = Ayudante.getAccion(ruta);
-        UsuarioDAO us = new UsuarioDAO();
+        UsuarioDAO dao = new UsuarioDAO();
+        ArrayList<Usuario> lista = new ArrayList<Usuario>();
+        Usuario u;
         switch(accion){
             case "agregar":
-                Usuario u = new Usuario();
+                u = new Usuario();
                 u.setEmail(request.getParameter("email"));
                 
                 u.setNombre(request.getParameter("nombre"));
                 u.setApellido(request.getParameter("apellido"));
 
-                if (!us.buscarEmail(u.getEmail()) && us.insertar(u)>0){
+                if (!dao.buscarEmail(u.getEmail()) && dao.insertar(u)>0){
                     response.sendRedirect("../Ingresar.jsp");
                 }else{
                     response.sendRedirect("../ErrorLogin.jsp");
                 }
-
+                break;
+            case "ver":
+                 lista = dao.listarUsuarios();
+                 request.setAttribute("lista", lista);                
+                request.getRequestDispatcher("../UsuarioAdmin.jsp").forward(request, response);
+                break;
+            case "eliminar":
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (dao.borrar(id)>0){
+                    lista = dao.listarUsuarios();
+                    request.setAttribute("lista", lista); 
+                    request.getRequestDispatcher("../UsuarioAdmin.jsp").forward(request, response);
+                }
+                break;
+            case "modificar":
+                u = new Usuario();
+                u.setNombre(request.getParameter("nombre"));
+                u.setApellido(request.getParameter("apellido"));
+                u.setFechaCreacion(request.getParameter("fecha"));
+                u.setPerfilId(Integer.parseInt(request.getParameter("idPerfil")));
+                u.setId(Integer.parseInt(request.getParameter("id")));
+                if (dao.modificar(u)>0){
+                    lista = dao.listarUsuarios();
+                    request.setAttribute("lista", lista); 
+                    request.getRequestDispatcher("../UsuarioAdmin.jsp").forward(request, response);
+                }
+                break;
                 
         }
     }

@@ -35,15 +35,14 @@ public class UsuarioDAO {
         return res;
     }
     
-    public int modificar(Usuario u, int id){
+    public int modificar(Usuario u){
         int res = 0;
         String q = "Update usuario set"
-                + "perfil_id='"+u.getPerfilId()
-                + "',nombre='"+u.getNombre()
+                + " perfil_id="+u.getPerfilId()
+                + ",nombre='"+u.getNombre()
                 + "',apellido='"+u.getApellido()
-                + "',email='"+u.getEmail()
                 + "',fecha_creacion='"+u.getFechaCreacion()
-                + "' where id="+id;
+                + "' where id="+u.getId();
         
         Conexion c = new Conexion();
         res = c.ejecutarSQL(q);                       
@@ -60,6 +59,31 @@ public class UsuarioDAO {
     
     public Usuario buscar(String email){
         String q = "Select * from usuario where email='"+email+"';";
+        Conexion c = new Conexion();
+        Usuario u = new Usuario();
+        ResultSet rs;
+        if (c.conecta()){
+            rs = c.leerDatos(q);
+            try {
+                while (rs.next()){
+                    u.setId(rs.getInt("id"));
+                    u.setNombre(rs.getString("nombre"));
+                    u.setApellido(rs.getString("apellido"));
+                    u.setEmail(rs.getString("email"));
+                    u.setFechaCreacion(rs.getString("fecha_creacion"));
+                    u.setPerfilId(rs.getInt("perfil_id"));
+                    
+                }
+                c.desconecta();
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return u;
+    }
+    
+    public Usuario buscarId(int id){
+        String q = "Select * from usuario where id='"+id+"';";
         Conexion c = new Conexion();
         Usuario u = new Usuario();
         ResultSet rs;

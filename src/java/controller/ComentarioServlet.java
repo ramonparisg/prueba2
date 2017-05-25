@@ -62,7 +62,8 @@ public class ComentarioServlet extends HttpServlet {
                 
                 update.setComentario(request.getParameter("comentario"));                
                 if (comentarioDAO.modificar(update)>0){
-                    request.getRequestDispatcher(request.getContextPath()+"/Post.jsp?codigo="+update.getPostId()+"&idUsuario="+update.getUsuarioId()).forward(request, response);
+                    
+                    response.sendRedirect(request.getContextPath()+"/Post.jsp?codigo="+update.getPostId()+"&idUsuario="+update.getUsuarioId());
                 }else{
                     response.sendRedirect(request.getContextPath()+"/ErrorLogin.jsp");
                 }

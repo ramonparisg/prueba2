@@ -73,7 +73,7 @@ public class PerfilDAO {
     }
     
     public ArrayList<Auxiliar> listar (){
-        ArrayList<Auxiliar> lista= null;
+        ArrayList<Auxiliar> lista= new ArrayList<Auxiliar>();
         String q = "Select * from perfil;";
         
         Conexion con = new Conexion();
@@ -84,8 +84,8 @@ public class PerfilDAO {
             try {
                 while (rs.next()){
                     perfil = new Auxiliar();
-                    perfil.setId(rs.getInt(0));
-                    perfil.setDetalle(rs.getString(1));                                        
+                    perfil.setId(rs.getInt(1));
+                    perfil.setDetalle(rs.getString(2));                                        
                     lista.add(perfil);
                 }
                 con.desconecta();

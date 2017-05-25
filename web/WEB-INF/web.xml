@@ -67,7 +67,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
-        <url-pattern>/Usuario</url-pattern>
+        <url-pattern>/Usuario/ver</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

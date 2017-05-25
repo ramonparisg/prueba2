@@ -18,7 +18,7 @@
         <h1>Bienvenido, administrador ${sessionScope.user}</h1>
         
         <a href="Post/ver">Posts</a>
-        <a href="UsuarioAdmin.jsp">Usuarios</a>
+        <a href="Usuario/ver">Usuarios</a>
         <a href="PerfilAdmin.jsp">Perfil</a>
         <a href="ComentariosAdmin">Comentarios</a>
     </body>
