@@ -5,7 +5,7 @@ create database prograweb;
 use prograweb;
 
 create table perfil(
-id int,
+id int auto_increment,
 detalle varchar(45),
 primary key(id)
 );
@@ -59,8 +59,8 @@ constraint fk_comentario_estado foreign key(comentario_estado_id) references com
 );
 
 
-insert into perfil values (1,'Administrador');
-insert into perfil values(2,'Usuario');
+insert into perfil(detalle) values ('Administrador');
+insert into perfil(detalle) values('Usuario');
 
 
 insert into usuario(perfil_id,

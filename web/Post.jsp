@@ -29,31 +29,40 @@
             ComentarioDAO comDAO = new ComentarioDAO();
             ArrayList<Comentario> lista = comDAO.listarPostComentario(codigo);
             
-
-            String idUsuario =request.getParameter("idUsuario");
+            
+            
         %>
     </head>
-    <body>                                
+    <body class="container">                                
         
         <h2><%=post.getTitulo() %> </h2>
-         <p><%=post.getTitulo() %> - <%=postDAO.buscarNombreUsuario(post.getUsuarioId()) %></p>
+         <p><%=post.getFechaCreacion() %> - <%=postDAO.buscarNombreUsuario(post.getUsuarioId()) %></p>
          <hr>
-         <p><%=post.getCuerpo() %></p>
+         <p class="text-justify"><%=post.getCuerpo() %></p>
          <br>
          <h1>Comentarios:</h1>
-        <%for(Comentario com : lista){ %>
-        <h4><%=comDAO.buscarUsuarioComentario(com.getUsuarioId()) %>
-            <% if (idUsuario!=null){%>
-            <a class="glyphicon glyphicon-pencil" href="Comentario.jsp?idComentario=<%=com.getId() %>&idUsuario=<%=idUsuario %>&idPost=<%=post.getId() %>"></a>
-            <a class="glyphicon glyphicon-remove" href="Comentario/eliminar?idComentario=<%=com.getId() %>"></a></h4>  
+         
+        <% 
+                String idUsuario =request.getParameter("idUsuario");
             
-            <% } %>
-            <p><%=com.getFechaCreacion() %></p>
-            <hr>
-            <p><%=com.getComentario() %></p>
-            <br>
+            
+            for(Comentario com : lista){ %>
+        <div style="border:1px solid black; padding: 10px; margin:10px; border-radius: 10px;">
         
-        <% } %>
+            <% if (idUsuario!=null && Integer.parseInt(idUsuario)==com.getUsuarioId()){%>
+            <p class="text-right"><a class="glyphicon glyphicon-pencil btn-warning btn" href="Comentario.jsp?idComentario=<%=com.getId() %>&idUsuario=<%=idUsuario %>&idPost=<%=post.getId() %>"></a>
+            <a class="glyphicon glyphicon-remove btn btn-danger" href="Comentario/eliminar?idComentario=<%=com.getId() %>"></a></h4>  
+            </p>
+            <% } %>
+            <h4><%=comDAO.buscarUsuarioComentario(com.getUsuarioId()) %>
+            <p><%=com.getFechaCreacion() %></p>
+            <hr style="border-color: black;">
+            <div >
+            <p><%=com.getComentario() %></p>
+            </div>
+            <br>
+        </div>
+        <% }  %>
         
         <% if(request.getParameter("idUsuario")!=null){ %>
             <h4>Inserta un comentario</h4>

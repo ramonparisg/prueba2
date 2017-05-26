@@ -19,13 +19,24 @@
             lista = (ArrayList<Post>) request.getAttribute("lista");
             
         %>
+        <style>
+       .table {
+          table-layout:fixed;
+        }
+
+        .table td {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        </style>
     </head>
     <body>
-        <div class="container">
-        <h1>Lista de Post</h1>
-        <p><a href="<%=request.getContextPath() %>/PostFormato.jsp?accion=agregar" class="glyphicon glyphicon-plus" >Add</a></p>
-        <table border="1">
-            <thead>
+        <div class="container-fluid">
+        <h1 class="text-center">Lista de Posts</h1>
+        <p><a href="<%=request.getContextPath() %>/PostFormato.jsp?accion=agregar" class="glyphicon glyphicon-plus btn btn-success" ></a></p>
+        <table class="table table-hover">
+            <thead class="text-center">
                 <th>ID</th>
                 <th>Usuario ID</th>
                 <th>Titulo</th>
@@ -42,8 +53,8 @@
                     <td><%=p.getCuerpo() %></td>                    
                     <td><%=p.getPostEstadoId() %></td>
                     <td><%=p.getFechaCreacion() %></td>
-                    <td><a href="<%=request.getContextPath() %>/PostFormato.jsp?id=<%=p.getId() %>&accion=modificar" class="glyphicon glyphicon-pencil"> Modificar</a> <br/> 
-                        <a href="<%=request.getContextPath()%>/Post/eliminar?id=<%=p.getId() %>" class="glyphicon glyphicon-remove"> Eliminar</a> </td> 
+                    <td><a href="<%=request.getContextPath() %>/PostFormato.jsp?id=<%=p.getId() %>&accion=modificar" class="btn btn-warning"><spam class="glyphicon glyphicon-pencil"></spam></a>
+                        <a href="<%=request.getContextPath()%>/Post/eliminar?id=<%=p.getId() %>" class="btn btn-danger"><spam class="glyphicon glyphicon-remove"></spam></a> </td> 
                  </tbody>
             <% }}else{ %>
                 <h1>No hay datos :(</h1>

@@ -21,15 +21,15 @@
             ArrayList<Post> lista = p.listar();
         %>
     </head>
-    <body>                        
+    <body class="container">                        
         <h1>Bienvenido, ${sessionScope.user}</h1>
         <% 
             for(Post post : lista){                
          %>
          <a href="Post.jsp?codigo=<%=post.getId() %>&idUsuario=${sessionScope.id}"> <h2><%=post.getTitulo()%></h2></a>                  
-         <p><%=post.getFechaCreacion()%> - <%=p.buscarNombreUsuario(post.getUsuarioId())%></p>
+         <p class="text-right"><%=post.getFechaCreacion()%> - <%=p.buscarNombreUsuario(post.getUsuarioId())%></p>
          <hr>
-         <p><%=post.getCuerpo() %></p>
+         <p class="text-justify"><%=post.getCuerpo() %></p>
          <br>
         <%        
         }

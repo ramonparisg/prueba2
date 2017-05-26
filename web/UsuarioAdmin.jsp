@@ -22,9 +22,9 @@
     </head>
     <body>
         <div class="container">
-        <h1>Lista de Post</h1>
-        <p><a href="<%=request.getContextPath() %>/Registrar.jsp" class="glyphicon glyphicon-plus" >Add</a></p>
-        <table border="1">
+        <h1 class="text-center">Lista de Usuarios</h1>
+        <p><a class="btn btn-success" href="<%=request.getContextPath() %>/Registrar.jsp"><spam class="glyphicon glyphicon-plus"></spam></a></p>
+        <table class="table table-hover">
             <thead>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -42,8 +42,8 @@
                     <td><%=u.getEmail() %></td>                    
                     <td><%=u.getFechaCreacion() %></td>
                     <td><%=u.getPerfilId() %></td>
-                    <td><a href="<%=request.getContextPath() %>/UsuarioFormato.jsp?id=<%=u.getId() %>&accion=modificar" class="glyphicon glyphicon-pencil"> Modificar</a> <br/> 
-                        <a href="<%=request.getContextPath()%>/Usuario/eliminar?id=<%=u.getId() %>" class="glyphicon glyphicon-remove"> Eliminar</a> </td> 
+                    <td><a class="btn btn-warning" href="<%=request.getContextPath() %>/UsuarioFormato.jsp?id=<%=u.getId() %>&accion=modificar" class=""> <spam class="glyphicon glyphicon-pencil"></spam></a> 
+                        <a class="btn btn-danger" href="<%=request.getContextPath()%>/Usuario/eliminar?id=<%=u.getId() %>"> <spam class="glyphicon glyphicon-remove"></spam></a> </td> 
                  </tbody>
             <% }}else{ %>
                 <h1>No hay datos :(</h1>

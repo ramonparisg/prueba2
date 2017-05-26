@@ -164,4 +164,31 @@ public class ComentarioDAO {
         } 
         return lista;
     }
+    public int borrarPorPost(int id){
+        int res = 0;
+        String q ="delete from comentario where post_id="+id;
+        Conexion c = new Conexion();
+        res=c.ejecutarSQL(q);
+        return res;
+    }
+    
+//    public boolean buscarPorPost(int id){
+//        String q = "Select * from comentario where post_id="+id;
+//        boolean res = false;
+//        Conexion con = new Conexion();
+//        if (con.conecta()){
+//            ResultSet rs;
+//            rs=con.leerDatos(q);
+//            Comentario c;
+//            try {
+//                while (rs.next()){
+//                    return true;
+//                }
+//            }catch(Exception ex){
+//                
+//            }     
+//        }
+//        return false;
+//    }
+//        
 }

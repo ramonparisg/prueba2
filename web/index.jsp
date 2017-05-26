@@ -36,7 +36,7 @@
              <a href="Post.jsp?codigo=<%=post.getId() %>"><h2><%=post.getTitulo()%></h2></a>                
              <p><%=post.getFechaCreacion()%> - <%=p.buscarNombreUsuario(post.getUsuarioId())%></p>
              <hr>
-             <p><%=post.getCuerpo() %></p>
+             <p class="text-justify"><%=post.getCuerpo() %></p>
              <br>
              </div>
         <%        

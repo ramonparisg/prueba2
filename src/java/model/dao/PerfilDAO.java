@@ -32,13 +32,12 @@ public class PerfilDAO {
         return res;
     }
     
-    public int modificar(Auxiliar perfil, int id){
+    public int modificar(Auxiliar perfil){
         int res = 0;
         String q = "Update perfil set"
                 + "id="+perfil.getId()
                 + ",detalle='"+perfil.getDetalle()               
-                + "' where id="+id;
-        
+                + "' where id="+perfil.getId();        
         Conexion con = new Conexion();
         res = con.ejecutarSQL(q);                       
         return res;
@@ -52,7 +51,7 @@ public class PerfilDAO {
         return res;
     }
     
-    public void buscar(int id){
+    public Auxiliar buscar(int id){
         String q = "Select * from perfil where id="+id;
         Conexion con = new Conexion();        
         Auxiliar perfil = new Auxiliar();
@@ -70,6 +69,7 @@ public class PerfilDAO {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return perfil;
     }
     
     public ArrayList<Auxiliar> listar (){

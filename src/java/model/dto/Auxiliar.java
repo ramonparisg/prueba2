@@ -19,6 +19,8 @@ public class Auxiliar {
     }
 
     public Auxiliar() {
+        this.id=0;
+        this.detalle="";
     }
 
     public int getId() {

@@ -18,6 +18,12 @@ public class Post {
     private String fechaCreacion;
 
     public Post() {
+        this.id=0;
+        this.usuarioId=0;
+        this.titulo="";
+        this.cuerpo="";
+        this.postEstadoId=0;
+        this.fechaCreacion="";
     }
 
     public Post(int id, int usuarioId, String titulo, String cuerpo, int postEstadoId, String fechaCreacion) {
